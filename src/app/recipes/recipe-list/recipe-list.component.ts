@@ -11,6 +11,7 @@ export class RecipeListComponent implements OnInit {
   constructor(private recipeService: RecipeService) { }
   
   ngOnInit() {
+    console.log("on init pada recipes.list.component")
     this.recipes = this.recipeService.getRecipes()
   }
   recipes: Recipe[] = [];
