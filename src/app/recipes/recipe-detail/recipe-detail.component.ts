@@ -17,9 +17,11 @@ export class RecipeDetailComponent implements OnInit {
 }
 
 ngOnInit() {
+  console.log("param id on init: ", this.route.snapshot.params['id'])
   this.route.params
     .subscribe(
       (params: Params) => {
+        console.log("param id on subscribe : ",params['id'])
         this.id = +params['id']; //casting dari string ke number
         this.recipe = this.recipeService.getRecipe(this.id);
       }

@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Ingredient } from "../shared/ingredient.model";
+import { Subject } from "rxjs/Subject";
 
 export class ShoppingListService {
+
+  startedEditing = new Subject<Ingredient>();
 
   constructor() { }
 
@@ -9,6 +12,10 @@ export class ShoppingListService {
     new Ingredient('Apples', 5),
     new Ingredient('Tomatoes', 10),
   ];
+
+  getIngredient(index: number) {
+    return this.ingredients[index];
+  }
 
   getIngredients() {
     return this.ingredients;

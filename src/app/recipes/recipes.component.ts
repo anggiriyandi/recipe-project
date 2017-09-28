@@ -1,5 +1,5 @@
 import { RecipeService } from './recipe.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Recipe } from "./recipe.model";
 
 @Component({
@@ -8,7 +8,8 @@ import { Recipe } from "./recipe.model";
   styleUrls: ['./recipes.component.css'],
   providers: [RecipeService]
 })
-export class RecipesComponent implements OnInit {
+export class RecipesComponent implements OnInit,OnDestroy {
+
   selectedRecipe: Recipe;
 
   constructor(private recipeService: RecipeService) { }
@@ -21,6 +22,10 @@ export class RecipesComponent implements OnInit {
           this.selectedRecipe = recipe;
         }
       );
+  }
+
+  ngOnDestroy(): void {
+    console.log("jalankan on destroy")
   }
 
 }
