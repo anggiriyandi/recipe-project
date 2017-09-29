@@ -21,46 +21,41 @@ export class ShopingEditComponent implements OnInit,OnDestroy {
 
   constructor(private slService: ShoppingListService) { }
 
-  // ngOnInit() {
-  //   this.subscription = this.slService.startedEditing
-  //     .subscribe(
-  //       (index: number) => {
-  //         this.editedItemIndex = index;
-  //         this.editMode = true;
-  //         this.editedItem = this.slService.getIngredient(index);
-  //         this.slForm.setValue({
-  //           name: this.editedItem.name,
-  //           amount: this.editedItem.amount
-  //         })
-  //       }
-  //     );
-  // }
-
   ngOnInit() {
     this.subscription = this.slService.startedEditing
       .subscribe(
-        (ingredient: Ingredient) => {
-          // this.editedItemIndex = index;
+        (index: number) => {
+          this.editedItemIndex = index;
           this.editMode = true;
-          // this.editedItem = this.slService.getIngredient(index);
+          this.editedItem = this.slService.getIngredient(index);
           this.slForm.setValue({
-            name: ingredient.name,
-            amount: ingredient.amount
+            name: this.editedItem.name,
+            amount: this.editedItem.amount
           })
         }
       );
   }
 
-  onAddItem(form: NgForm) {
-    console.log("forms : ", form)
+ onAddItem(form: NgForm) {
     const value = form.value;
     const newIngredient = new Ingredient(value.name, value.amount);
-    
-    this.slService.addIngredient(newIngredient);
+    if(this.editMode) {
+      console.log("Index : ",this.editedItemIndex)
+      console.log("Index : ",value)
+      this.slService.updateIngredient(this.editedItemIndex, newIngredient);
+    } else {
+      this.slService.addIngredient(newIngredient);
+    }
+    this.editMode = false;
+    form.reset();
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe;
   }
 
+  onClear(){
+    this.slForm.reset();
+    this.editMode = false;
+  }
 }
