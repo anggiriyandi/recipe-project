@@ -4,8 +4,9 @@
       <div class="row">
         <div class="col-xs-12">
           <button
-            type="submit"
-            class="btn btn-success">Save</button>
+          type="submit"
+          class="btn btn-success"
+          [disabled]="!recipeForm.valid">Save</button>
           <button type="button" class="btn btn-danger" >Cancel</button>
         </div>
       </div>
@@ -17,7 +18,8 @@
               type="text"
               id="name"
               class="form-control"
-              formControlName="name">
+              formControlName="name"
+              required>
           </div>
         </div>
       </div>
@@ -83,6 +85,7 @@
               <button
                 type="button"
                 class="btn btn-success"
+                (click)="onAddIngredient()"
                 >Add Ingredient</button>
             </div>
           </div>
